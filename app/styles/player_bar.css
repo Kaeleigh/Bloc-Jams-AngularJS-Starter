@@ -172,13 +172,13 @@
         margin: 0 auto;
         padding: 0;
         width: 100%;
-        text-align: center;   
+        text-align: center;
     }
-    
+
     .player-bar .main-controls {
         min-height: 3.5rem;
     }
-    
+
     .player-bar .currently-playing {
         min-height: 2.5rem;
     }
@@ -187,12 +187,12 @@
         min-height: 3.5rem;
     }
 
-    .artist-name, 
-    .song-name {
+    .player-bar .artist-name,
+    .player-bar .song-name {
         display: none;
     }
-    
-    .artist-song-mobile {
+
+    .player-bar .currently-playing .artist-song-mobile {
         display: block;
     }
 }
