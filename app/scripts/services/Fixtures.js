@@ -17,7 +17,7 @@
           ]
         };
 
-        
+
         var albumMarconi = {
             title: 'The Telephone',
             artist: 'Guglielmo Marconi',
@@ -35,6 +35,15 @@
 
         Fixtures.getAlbum = function() {
             return albumPicasso;
+        };
+
+        Fixtures.getcollection = function(numberOfAlbums) {
+            var array = [];
+            for (var i = 0; i < numberOfAlbums; i++) {
+                array.push(angular.copy(albumPicasso));
+            }
+            
+            return array;
         };
 
         return Fixtures;
