@@ -25,8 +25,7 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
 */
         var setSong = function(song) {
             if (currentBuzzObject) {          // if there is a song
-                currentBuzzObject.stop();     //stop that song
-                SongPlayer.currentSong.playing = null;   //updates boolean
+                  stopSong();   //stop that song and updates boolean
             }
 
             currentBuzzObject = new buzz.sound(song.audioUrl, {   //creates new sound instance from music in assests
@@ -47,6 +46,17 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
                   currentBuzzObject.play();     //buzz play method on SongPlayer object; plays new buzz sound object
                   song.playing = true;          // updates boolean of selected song
               };  // closes playSong function
+
+/**
+*@function stop song
+*@desc stops current song
+*@param {Object} song
+*/
+          var stopSong = function(song) {
+                currentBuzzObject.stop();
+                SongPlayer.currentSong.playing = null;
+          };    // closes stop song function
+
 /**
 *@function index
 *@desc gets index of songs
@@ -93,21 +103,38 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
 /**
 *@function previous
 *@desc hit previous song
-*@param method
+*@param {Object}
 */
         SongPlayer.previous = function() {
             var currentSongIndex = getSongIndex(SongPlayer.currentSong);    //get index of current song playing
             currentSongIndex--;                                             // decrease index by one to go back to previous song
 
             if(currentSongIndex < 0) {                        // if index is less than 0 stop current song
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;        // set value of currently playing song to first song
+                stopSong();        // set value of currently playing song to first song
             }   else {
                   var song = currentAlbum.songs[currentSongIndex];   //if greater than 0 moves to previous song and play it
                     setSong(song);
                     playSong(song);
             }   // close else statement
         };  // close previous function
+
+/**
+*@function next
+*@desc switch to next song
+*@param {Object}
+*/
+        SongPlayer.next = function() {
+            var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+            currentSongIndex++;
+
+            if(currentSongIndex >= currentAlbum.songs.length) {
+                stopSong();
+            } else {
+              var song = currentAlbum.songs[currentSongIndex];
+                setSong(song);
+                playSong(song);
+            }
+        };  // close next function
 
         return SongPlayer;      // makes SongPlayer properties and methods public to rest of application
     }     // closes SongPlayer function
