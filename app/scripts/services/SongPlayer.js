@@ -19,16 +19,6 @@ Two public methods (SongPlayer.play) and (SongPlayer.pause)
         var currentBuzzObject = null;
 
 /**
-* @function playSong
-* @desc Plays current song
-* @param {Object} song
-*/
-      var playSong = function() {
-          currentBuzzObject.play();     //buzz play method on SongPlayer object; plays new buzz sound object
-          song.playing = true;          // updates boolean of selected song
-      };  // closes playSong function
-
-/**
 * @function setSong
 * @desc Stops currently playng song and loads new audio file as currentBuzzObject
 * @param {Object} song
@@ -47,10 +37,23 @@ Two public methods (SongPlayer.play) and (SongPlayer.pause)
            currentSong = song;    // sets chosen song as current song
         };  // closes setSong function
 
+        /**
+        * @function playSong
+        * @desc Plays current song
+        * @param {Object} song
+        */
+          var playSong = function(song) {
+
+                  currentBuzzObject.play();     //buzz play method on SongPlayer object; plays new buzz sound object
+                  song.playing = true;          // updates boolean of selected song
+              };  // closes playSong function
+
+
         SongPlayer.play = function(song) {
             if (currentSong !== song) {
               setSong(song);    //refers to function setSong
               playSong(song);
+
            } else if (currentSong === song) {     // if song is current song then song must be paused
               if (currentBuzzObject.isPaused()) {   // checks if song is paused
                   playSong(song);       // plays the song
