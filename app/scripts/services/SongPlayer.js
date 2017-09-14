@@ -5,7 +5,17 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
 */
 
 (function() {   // creates service that will play songs
+  /* private */
+
+  /**
+  * @function: SongPlayer
+  * @desc plays/pause, next/previous buttons
+  *@param fixutres
+  *@return {object} songplayer
+  */
+
     function SongPlayer($rootScope, Fixtures) {
+
          var SongPlayer = {};
 /**
 *@desc Current album variable
@@ -33,7 +43,7 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
                preload: true
            });
 
-           currentBuzzObject.bind('timeupdate', function() {                // timeupdate a html5 audio event used with Buzz bind method 
+           currentBuzzObject.bind('timeupdate', function() {                // timeupdate a html5 audio event used with Buzz bind method
               $rootScope.$apply(function() {
                  SongPlayer.currentTime = currentBuzzObject.getTime();
               });
@@ -42,47 +52,55 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
            SongPlayer.currentSong = song;    // sets chosen song as current song
         };  // closes setSong function
 
-/**
-* @function playSong
-* @desc Plays current song
-* @param {Object} song
-*/
-          var playSong = function(song) {
+        /**
+        * @function playSong
+        * @desc Plays current song
+        * @param {Object} song
+        */
+                  var playSong = function(song) {
 
-                  currentBuzzObject.play();     //buzz play method on SongPlayer object; plays new buzz sound object
-                  song.playing = true;          // updates boolean of selected song
-              };  // closes playSong function
+                          currentBuzzObject.play();     //buzz play method on SongPlayer object; plays new buzz sound object
+                          song.playing = true;          // updates boolean of selected song
+                      };  // closes playSong function
 
-/**
-*@function stop song
-*@desc stops current song
-*@param {Object} song
-*/
-          var stopSong = function(song) {
-                currentBuzzObject.stop();
-                SongPlayer.currentSong.playing = null;
-          };    // closes stop song function
+        /**
+        *@function stop song
+        *@desc stops current song
+        *@param {Object} song
+        */
+                  var stopSong = function(song) {
+                        currentBuzzObject.stop();
+                        SongPlayer.currentSong.playing = null;
+                  };    // closes stop song function
 
-/**
-*@function index
-*@desc gets index of songs
-*@type variable
-*/
-          var getSongIndex = function(song) {
-              return currentAlbum.songs.indexOf(song);        //grabs index of song
-          };
+        /**
+        *@function index
+        *@desc gets index of songs
+        *@type variable
+        */
+                  var getSongIndex = function(song) {
+                      return currentAlbum.songs.indexOf(song);        //grabs index of song
+                  };
+    /* public */
 
-/**
-*@desc active song object from list of songs
-*@type {Object}
-*/
-          SongPlayer.currentSong = null;
+    /**
+    *@desc active song object from list of songs
+    *@type {Object}
+    */
+              SongPlayer.currentSong = null;
 
-/**
-*@desc Current playback time (seconds) of currently playing song
-*@type {Number}
-*/
-          SongPlayer.currentTime = null;
+    /**
+    *@desc Current playback time (seconds) of currently playing song
+    *@type {Number}
+    */
+              SongPlayer.currentTime = null;
+
+              /**
+              *@desc sets volume of current song
+              *@type {Number}
+              */
+              SongPlayer.setVolume = 70;
+
 
 /**
 *@function play
@@ -158,6 +176,15 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
               currentBuzzObject.setTime(time);
           }
         };  // closes set time function
+
+/**
+*@function set volume
+*@desc sets volume of current song
+*@param {Object} volume
+*/
+                  SongPlayer.setVolume = function(volume) {
+                      currentBuzzObject.setVolume(volume);
+                  };
 
         return SongPlayer;      // makes SongPlayer properties and methods public to rest of application
     }     // closes SongPlayer function
