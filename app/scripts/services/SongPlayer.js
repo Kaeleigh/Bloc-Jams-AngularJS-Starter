@@ -99,7 +99,13 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
               *@desc sets volume of current song
               *@type {Number}
               */
-              SongPlayer.setVolume = 70;
+              SongPlayer.setVolume = 50;
+
+              /**
+              *@desc mute volume
+              *@type {Boolean}
+              */
+              SongPlayer.isMuted = false;
 
 
 /**
@@ -185,6 +191,27 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
                   SongPlayer.setVolume = function(volume) {
                       currentBuzzObject.setVolume(volume);
                   };
+
+/**
+*@function mute volume
+*@desc mutes and unmutes volume on click
+*@param {Object} volume
+*/
+                SongPlayer.mute = function() {
+                    if (currentBuzzObject) {
+                        currentBuzzObject.mute();
+                    }
+                      SongPlayer.setVolume = 0;        //adjusts volume to have no sound
+                      SongPlayer.isMuted = true;      // updates boolean that sound is muted
+                };
+
+                SongPlayer.unmute = function() {
+                    if(currentBuzzObject.isMuted()) {     // checks if music is muted
+                      currentBuzzObject.unmute();         // unmutes sound
+                    }
+                      SongPlayer.isMuted = false;         // updates boolean that sound is unmuted
+                      SongPlayer.setVolume = 70;          // adjusts volume 
+                };
 
         return SongPlayer;      // makes SongPlayer properties and methods public to rest of application
     }     // closes SongPlayer function
