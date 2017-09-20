@@ -44,7 +44,7 @@
                ng-click="playerBar.songPlayer.unmute()">
              </span>
            </a>
-             <seek-bar value="{{ playerBar.songPlayer.volume }}"
+             <seek-bar value="{{playerBar.songPlayer.volume}}"
                max ="100"
                on-change="playerBar.songPlayer.setVolume(value)">
             </seek-bar>

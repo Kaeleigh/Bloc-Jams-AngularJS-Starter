@@ -189,7 +189,10 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
 *@param {Object} volume
 */
                   SongPlayer.setVolume = function(volume) {
-                      currentBuzzObject.setVolume(volume);
+                      if (currentBuzzObject) {
+                         currentBuzzObject.setVolume(volume);
+                        }
+                      SongPlayer.volume = volume;
                   };
 
 /**
@@ -201,7 +204,7 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
                     if (currentBuzzObject) {
                         currentBuzzObject.mute();
                     }
-                      SongPlayer.setVolume = 0;        //adjusts volume to have no sound
+                      SongPlayer.volume = 0;        //adjusts volume to have no sound
                       SongPlayer.isMuted = true;      // updates boolean that sound is muted
                 };
 
@@ -210,7 +213,7 @@ Three public attributes (SongPlayer.play), (SongPlayer.pause) and SongPlayer.cur
                       currentBuzzObject.unmute();         // unmutes sound
                     }
                       SongPlayer.isMuted = false;         // updates boolean that sound is unmuted
-                      SongPlayer.setVolume = 70;          // adjusts volume 
+                      SongPlayer.volume = 70;          // adjusts volume
                 };
 
         return SongPlayer;      // makes SongPlayer properties and methods public to rest of application
